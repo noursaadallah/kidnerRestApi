@@ -2,8 +2,8 @@
 
     mkdir -p $GOPATH/src/github.com/noursaadallah
     cd $GOPATH/src/github.com/noursaadallah
-    git clone https://github.com/noursaadallah/kidner.git
-    cd kidner
+    git clone https://github.com/noursaadallah/kidnerRestApi.git
+    cd kidnerRestApi
     make help => display help
     make setup-preq => install prerequisites : docker & docker-compose & go v1.8.3
     make setup-hf => install fabric & fabric-ca & fabric-sdk-go
@@ -11,7 +11,7 @@
 
 ## Start kidner:
 
-    cd $GOPATH/src/github.com/noursaadallah/kidner
+    cd $GOPATH/src/github.com/noursaadallah/kidnerRestApi
     make env-up run
 
 
@@ -58,6 +58,6 @@
     mkdir -p $GOPATH/src/github.com/noursaadallah && \
     cd $GOPATH/src/github.com/noursaadallah
 
-    git clone https://github.com/noursaadallah/kidner.git
+    git clone https://github.com/noursaadallah/kidnerRestApi.git
 
     make or make all 
