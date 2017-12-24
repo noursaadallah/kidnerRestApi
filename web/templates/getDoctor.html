@@ -1,0 +1,39 @@
+{{define "title"}} Get Doctor {{end}}
+
+{{define "body"}}
+
+<h1>Get Doctor</h1>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+<form class="form-inline" action="getDoctor.html" method="post">
+    <div class="form-group">
+        <label for="ID">ID</label>
+        <input type="text" class="form-control" id="ID" placeholder="Doctor-ID" name="ID" size="60">
+        
+    </div>
+    <input type="hidden" name="submitted" value="true">
+    <button type="submit" class="btn btn-default">Get Doctor</button>
+</form>
+
+{{ if .Response }}
+{{ if .Success }}
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Successful query , value = {{ .Doctor }}
+</div>
+{{ else }}
+<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Unable to query the key, retry later.
+</div>
+{{ end }}
+{{ end }}
+
+<br>
+{{end}}

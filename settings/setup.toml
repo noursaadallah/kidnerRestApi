@@ -1,0 +1,30 @@
+[Channel]
+    Id = "mychannel"
+    ConfigFile = "fixtures/channel/mychannel.tx"
+
+[Chaincode]
+	Id =     "kidnerCC"
+	Version= "v1.0.3"
+	Path= "github.com/noursaadallah/kidner/fixtures/src"
+
+[SDKConfig]
+    Path = "fixtures/config/config.yaml"
+
+[Admin]
+    Name = "admin"
+    Pwd = "adminpw"
+    StateStorePath = "/tmp/enroll_user"
+
+[OrdererUser]
+    KeyDir = "ordererOrganizations/example.com/users/Admin@example.com/keystore"
+    CertDir = "ordererOrganizations/example.com/users/Admin@example.com/signcerts"
+    Username = "ordererAdmin"
+
+[OrgUser]
+    KeyDir = "peerOrganizations/org1.example.com/users/Admin@org1.example.com/keystore"
+    CertDir = "peerOrganizations/org1.example.com/users/Admin@org1.example.com/signcerts"
+    Username = "peerorg1Admin"
+
+[WebServer]
+    Address = "localhost"
+    Port = "3000"

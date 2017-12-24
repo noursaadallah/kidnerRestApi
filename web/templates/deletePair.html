@@ -1,0 +1,23 @@
+{{define "title"}}Deactivate pair{{end}} {{define "body"}}
+<h1>Delete pair</h1>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .Response }} {{ if .Success }}
+<div class="alert alert-success" role="alert">
+    Pair deleted successfully, Transaction ID: {{ .PairID }}
+</div>
+<script type="text/JavaScript">
+    function Redirect() { document.location.href="listActivePairs.html"; } 
+    setTimeout('Redirect()', 3000);
+</script>
+{{ else }}
+<div class="alert alert-danger" role="alert">
+    Unable to submit the request, retry later.
+</div>
+{{ end }} {{ end }} {{end}}

@@ -1,0 +1,337 @@
+{{define "title"}} Update Pair {{end}} {{define "body"}}
+
+<h1>Update Pair :</h1>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .GotPair }} 
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Get Pair successfully, ID: {{ .PairID }}
+</div>
+{{ end }}
+{{if .Response}} {{if .Success}}
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Pair updated successfully
+</div>
+{{ end }} {{ end }} 
+
+<form class="form-inline" action="updatePair.html" method="post">
+    <div class="col-lg-6">
+        <h3>Donor :</h3>
+        <div class="form-group">
+
+            <div class="col-lg-6">
+                <label for="AgeD">Age</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="AgeD" placeholder="Age-D" name="AgeD" value={{.Pair.Donor.Age}} required>
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="BloodTypeD">Blood Type</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="BloodTypeD" value="A" required {{if eq .Pair.Donor.BloodType "A"}} checked {{end}} > A &ensp;
+                <input type="radio" class="form-control" name="BloodTypeD" value="B" required {{if eq .Pair.Donor.BloodType "B"}} checked {{end}}> B &ensp;
+                <input type="radio" class="form-control" name="BloodTypeD" value="AB" required {{if eq .Pair.Donor.BloodType "AB"}} checked {{end}}> AB &ensp;
+                <input type="radio" class="form-control" name="BloodTypeD" value="O" required {{if eq .Pair.Donor.BloodType "O"}} checked {{end}}> O
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="MedicalUrgencyD">Medical Urgency</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="MedicalUrgencyD" value="0" checked disabled="disabled"> 0
+                &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyD" value="1" disabled="disabled"> 1 &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyD" value="2" disabled="disabled"> 2 &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyD" value="3" disabled="disabled"> 3
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="PRAD">PRA</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="PRAD" placeholder="PRA-D" name="PRAD" value={{.Pair.Donor.PRA}} required>
+            </div>
+            <br><br>
+
+            <div class="col-lg-12">
+                <fieldset style="background: #f2f2f2; ">
+                    <legend> HLAs </legend>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="A1D">HLA-A1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="A1D" placeholder="HLA-A1" name="A1D" style="width:90%" required value={{index .Pair.Donor.HLAs "A1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="A2D">HLA-A2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="A2D" placeholder="HLA-A2" name="A2D" style="width:90%" required value={{index .Pair.Donor.HLAs "A2"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="B1D">HLA-B1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="B1D" placeholder="HLA-B1" name="B1D" style="width:90%" required value={{index .Pair.Donor.HLAs "B1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="B2D">HLA-B2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="B2D" placeholder="HLA-B2" name="B2D" style="width:90%" required value={{index .Pair.Donor.HLAs "B2"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DR1D">HLA-DR1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DR1D" placeholder="HLA-DR1" name="DR1D" style="width:90%" required value={{index .Pair.Donor.HLAs "DR1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DR2D">HLA-DR2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DR2D" placeholder="HLA-DR2" name="DR2D" style="width:90%" required value={{index .Pair.Donor.HLAs "DR2"}}>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DQ1D">HLA-DQ1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DQ1D" placeholder="HLA-DQ1" name="DQ1D" style="width:90%" required value={{index .Pair.Donor.HLAs "DQ1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DQ2D">HLA-DQ2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DQ2D" placeholder="HLA-DQ2" name="DQ2D" style="width:90%" required value={{index .Pair.Donor.HLAs "DQ2"}}>
+                        </div>
+                    </div>
+                    <div class="col-lg-12"><br></div>
+                </fieldset><br>
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="EligibilityD">Operation eligibility</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="EligibilityD" value="true" checked required> True
+                <input type="radio" class="form-control" name="EligibilityD" value="false" required> False
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <h3>Recipient :</h3>
+        <div class="form-group">
+
+
+            <div class="col-lg-6">
+                <label for="AgeR">Age</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="AgeR" placeholder="Age-R" name="AgeR" value={{.Pair.Recipient.Age}} required>
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="BloodTypeR">Blood Type</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="BloodTypeR" value="A" {{if eq .Pair.Recipient.BloodType "A"}} checked {{end}} required> A &ensp;
+                <input type="radio" class="form-control" name="BloodTypeR" value="B" {{if eq .Pair.Recipient.BloodType "B"}} checked {{end}} required> B &ensp;
+                <input type="radio" class="form-control" name="BloodTypeR" value="AB" {{if eq .Pair.Recipient.BloodType "AB"}} checked {{end}}  required> AB &ensp;
+                <input type="radio" class="form-control" name="BloodTypeR" value="O" {{if eq .Pair.Recipient.BloodType "O"}} checked {{end}} required> O
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="MedicalUrgencyR">Medical Urgency</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="MedicalUrgencyR" value="0" {{if eq .Pair.Recipient.MedicalUrgency 0}} checked {{end}} required> 0 &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyR" value="1" {{if eq .Pair.Recipient.MedicalUrgency 1}} checked {{end}} required> 1 &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyR" value="2"  {{if eq .Pair.Recipient.MedicalUrgency 2}} checked {{end}} required> 2 &ensp;
+                <input type="radio" class="form-control" name="MedicalUrgencyR" value="3" {{if eq .Pair.Recipient.MedicalUrgency 3}} checked {{end}} required> 3
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="PRAR">PRA</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="text" class="form-control" id="PRAR" placeholder="PRA-R" name="PRAR" value={{.Pair.Recipient.PRA}} required>
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-12">
+                <fieldset style="background: #f2f2f2;">
+                    <legend> HLAs </legend>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="A1R">HLA-A1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="A1R" placeholder="HLA-A1" name="A1R" style="width:90%" required value={{index .Pair.Recipient.HLAs "A1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="A2R">HLA-A2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="A2R" placeholder="HLA-A2" name="A2R" style="width:90%" required value={{index .Pair.Recipient.HLAs "A2"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="B1R">HLA-B1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="B1R" placeholder="HLA-B1" name="B1R" style="width:90%" required value={{index .Pair.Recipient.HLAs "B1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="B2R">HLA-B2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="B2R" placeholder="HLA-B2" name="B2R" style="width:90%" required value={{index .Pair.Recipient.HLAs "B2"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DR1R">HLA-DR1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DR1R" placeholder="HLA-DR1" name="DR1R" style="width:90%" required value={{index .Pair.Recipient.HLAs "DR1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DR2R">HLA-DR2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DR2R" placeholder="HLA-DR2" name="DR2R" style="width:90%" required value={{index .Pair.Recipient.HLAs "DR2"}}>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DQ1R">HLA-DQ1</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DQ1R" placeholder="HLA-DQ1" name="DQ1R" style="width:90%" required value={{index .Pair.Recipient.HLAs "DQ1"}}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="col-lg-5">
+                            <label for="DQ2R">HLA-DQ2</label>
+                        </div>
+                        <div class="col-lg-7">
+                            <input type="text" class="form-control" id="DQ2R" placeholder="HLA-DQ2" name="DQ2R" style="width:90%" required value={{index .Pair.Recipient.HLAs "DQ2"}}>
+                        </div>
+                    </div>
+                    <div class="col-lg-12"><br></div>
+                </fieldset><br>
+            </div>
+
+            <br><br>
+
+            <div class="col-lg-6">
+                <label for="EligibilityR">Operation eligibility</label>
+            </div>
+            <div class="col-lg-6">
+                <input type="radio" class="form-control" name="EligibilityR" value="true" checked required> True
+                <input type="radio" class="form-control" name="EligibilityR" value="false" required> False
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="col-lg-12">
+        <br><br>
+    </div>
+
+    <span title="Please insert the ID of your Professional Health Card (Carte de Professionnel de Santé - CPS)">
+    <div class="col-lg-6">
+        <label for="DrID"> Doctor ID </label>
+        <span class="badge badge-default badge-pill pull-right">?</span>
+    </div>
+    <div class="col-lg-6">
+        <input type="text" class="form-control" id="DrID" placeholder="Dr-ID" name="DrID" required {{if .Pair.DrID}} value={{.Pair.DrID}} {{end}} >
+    </div>
+    </span>
+
+    <span title="Please insert the Electronic Signature of your Professional Health Card (Carte de Professionnel de Santé - CPS)">
+    <div class="col-lg-6">
+        <label for="DrSig"> Dr Signature </label>
+        <span class="badge badge-default badge-pill pull-right">?</span>
+    </div>
+    <div class="col-lg-6">
+        <input type="password" class="form-control" id="DrSig" placeholder="signature" name="DrSig">
+    </div>
+    </span>
+
+    <input type="hidden" name="PairID" value={{.PairID}}>
+    <input type="hidden" name="submitted" value="true">
+    <button type="submit" class="btn btn-default">Update Pair</button>
+</form>
+
+<br>
+<br> 
+{{end}}

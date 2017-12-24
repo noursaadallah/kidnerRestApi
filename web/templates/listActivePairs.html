@@ -1,0 +1,175 @@
+{{define "title"}} List Active Pairs {{end}} {{define "body"}}
+
+<h1>List Active Pairs</h1>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .Response }} {{ if .Success }} {{ if .Pairs }}
+
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Query successful
+</div>
+
+<!-- Display pairs information -->
+{{range .Pairs}}
+
+<div>
+    <div class="col-lg-12 panel panel-default" style="border:1px solid dimgray ;">
+        <div class="col-lg-12">
+            <h3> Pair information :</h3>
+            <table class="table table-condensed table-bordered" style="border-collapse: collapse; margin:0;">
+                <tr>
+                    <th>Pair ID : </th>
+                    <td>{{.ID}}</td>
+                    <th>Status : </th>
+                    <td> {{ if .Active }} Active {{else }} Inactive {{end}} </td>
+                    <th>Creation date :</th>
+                    <td>{{.Recipient.CreateDate.Format "02/01/2006 15:04 MST"}}</td>
+
+                </tr>
+            </table>
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>Donor-Recipient compatibility :</th>
+                    <td>{{ if .Match}} Compatible {{else}} Not compatible {{end}}</td>
+                    <th>Compatibility score :</th>
+                    <td>{{.Score}}</td>
+                    <th>Recipient medical urgency :</th>
+                    <td>{{.Recipient.MedicalUrgency}}</td>
+                    <th>Doctor in charge :</th>
+                    <td>{{.DrID}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <h3> Donor information : </h3>
+            <table class="table table-condensed table-bordered" style="border-collapse: collapse; margin:0;">
+                <tr>
+                    <th>Age :</th>
+                    <td>{{.Donor.Age}}</td>
+                    <th>BloodType :</th>
+                    <td>{{.Donor.BloodType}}</td>
+                    <th>PRA :</th>
+                    <td>{{.Donor.PRA}}%</td>
+                    <th>Operation Eligibility :</th>
+                    <td>{{.Donor.Eligible}}</td>
+                </tr>
+            </table>
+            <!-- HLAs : {{/*.Pair.Donor.HLAs*/}} -->
+            <table class="table table-condensed table-bordered">
+                <caption> HLAs </caption>
+                <thead>
+                    <tr>
+                        <th> A1 </th>
+                        <th> A2 </th>
+                        <th> B1 </th>
+                        <th> B2 </th>
+                        <th> DR1 </th>
+                        <th> DR2 </th>
+                        <th> DQ1 </th>
+                        <th> DQ2 </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> {{ index .Donor.HLAs "A1" }} </td>
+                        <td> {{ index .Donor.HLAs "A2" }} </td>
+                        <td> {{ index .Donor.HLAs "B1" }} </td>
+                        <td> {{ index .Donor.HLAs "B2" }} </td>
+                        <td> {{ index .Donor.HLAs "DR1" }} </td>
+                        <td> {{ index .Donor.HLAs "DR2" }} </td>
+                        <td> {{ index .Donor.HLAs "DQ1" }} </td>
+                        <td> {{ index .Donor.HLAs "DQ2" }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
+            <h3> Recipient information :</h3>
+            <table class="table table-condensed table-bordered" style="border-collapse: collapse; margin:0;">
+                <tr>
+                    <th>Age :</th>
+                    <td>{{.Recipient.Age}}</td>
+                    <th>BloodType :</th>
+                    <td>{{.Recipient.BloodType}}</td>
+                    <th>PRA :</th>
+                    <td>{{.Recipient.PRA}}%</td>
+                    <th>Operation Eligibility :</th>
+                    <td>{{.Recipient.Eligible}}</td>
+                </tr>
+
+                <!-- HLAs : {{/*.Pair.Recipient.HLAs*/}} -->
+                <table class="table table-condensed table-bordered">
+                    <caption> HLAs </caption>
+                    <thead>
+                        <tr>
+                            <th> A1 </th>
+                            <th> A2 </th>
+                            <th> B1 </th>
+                            <th> B2 </th>
+                            <th> DR1 </th>
+                            <th> DR2 </th>
+                            <th> DQ1 </th>
+                            <th> DQ2 </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {{ index .Recipient.HLAs "A1" }} </td>
+                            <td> {{ index .Recipient.HLAs "A2" }} </td>
+                            <td> {{ index .Recipient.HLAs "B1" }} </td>
+                            <td> {{ index .Recipient.HLAs "B2" }} </td>
+                            <td> {{ index .Recipient.HLAs "DR1" }} </td>
+                            <td> {{ index .Recipient.HLAs "DR2" }} </td>
+                            <td> {{ index .Recipient.HLAs "DQ1" }} </td>
+                            <td> {{ index .Recipient.HLAs "DQ2" }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+
+        <div class="col-lg-3">
+            <form class="form-inline" action="updatePair.html" method="post">
+                <input type="hidden" name="hiddenPairIDSent" value="true">
+                <input type="hidden" name="hiddenPairID" value={{.ID}}>
+                <button type="submit" class="btn btn-default btn-block"> <strong> Update pair</strong></button>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <form class="form-inline" action="findPairedMatch.html" method="post">
+                <input type="hidden" name="hiddenPairIDSent" value="true">
+                <input type="hidden" name="hiddenPairID" value={{.ID}}>
+                <button type="submit" class="btn btn-success btn-block"><strong>Find a cross match for this pair</strong></button>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <form class="form-inline" action="deactivatePair.html" method="post">
+                <input type="hidden" name="hiddenPairIDSent" value="true">
+                <input type="hidden" name="hiddenPairID" value={{.ID}}>
+                <button type="submit" class="btn btn-warning btn-block"><strong>Deactivate pair</strong></button>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <form class="form-inline" action="deletePair.html" method="post">
+                <input type="hidden" name="hiddenPairIDSent" value="true">
+                <input type="hidden" name="hiddenPairID" value={{.ID}}>
+                <button type="submit" class="btn btn-danger btn-block"><strong>Delete pair</strong></button>
+            </form>
+        </div>
+        <div class="col-lg-12"> <br> </div>
+    </div>
+</div>
+
+{{end}} {{ else }}
+<div class="alert alert-danger" role="alert">
+    There is no active pairs.
+</div>
+{{ end }} {{ end }} {{ end }} {{end}}

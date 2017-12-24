@@ -1,0 +1,58 @@
+{{define "title"}} Refuse match{{end}}
+
+{{define "body"}}
+<h1>Refuse match</h1>
+<br>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .Response }}
+{{ if .Success }}
+<div class="alert alert-success alert-dismissable" role="alert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Match refused successfully. Transaction ID : {{.TxID}}
+</div>
+
+{{ else }}
+
+<!-- <div class="alert alert-danger alert-dismissable" role="alert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Unable to submit the request, retry later.
+</div> -->
+{{ end }}
+{{ end }}
+
+<form class="form-inline" action="refuseMatch.html" method="post">
+    <div class="form-group col-lg-12">
+
+        <div class="col-lg-4">
+        <label for="DrID">Doctor ID</label>
+        </div>
+        <div class="col-lg-8">
+        <input type="text" class="form-control" id="DrID" placeholder="Dr-ID" name="DrID" style="width:80%">
+        </div>
+
+        <div class="col-lg-4">
+        <label for="DrSig">Doctor signature</label>
+        </div>
+        <div class="col-lg-8">
+        <input type="password" class="form-control" id="DrSig" placeholder="signature" name="DrSig" style="width:80%">
+        </div>
+        <div class="col-lg-4">            
+        <label for="MatchID">Match ID</label>
+        </div>
+        <div class="col-lg-8">
+        <input type="text" class="form-control" id="MatchID" placeholder="matchID" name="MatchID" {{if .MatchID}} value={{.MatchID}} {{end}} style="width:80%">
+        </div>
+    </div>
+    <input type="hidden" name="submitted" value="true">
+    <button type="submit" class="btn btn-default">Refuse match</button>
+</form>
+
+<br>
+{{end}}

@@ -1,0 +1,25 @@
+{{define "title"}}Find paired match{{end}} {{define "body"}}
+<h1>Find paired match for pair</h1>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .Response }} {{ if .Success }}
+<div class="alert alert-success" role="alert">
+    Match result registered successfully, <br>
+    Attention : This does not mean that a match has been found for this pair, the result could be empty! <br>
+    Transaction ID: {{ .TxID }}
+</div>
+<script type="text/JavaScript">
+    function Redirect() { document.location.href="listActivePairs.html"; } 
+    setTimeout('Redirect()', 20000);
+</script>
+{{ else }}
+<div class="alert alert-danger" role="alert">
+    Unable to submit the request, retry later.
+</div>
+{{ end }} {{ end }} {{end}}

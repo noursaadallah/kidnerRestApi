@@ -1,0 +1,38 @@
+{{define "title"}} Create Doctor{{end}}
+
+{{define "body"}}
+<h1>Create Doctor</h1>
+<br>
+
+{{if .Error}} 
+<div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{.Error}}
+  </div>
+{{end}}
+
+{{ if .Response }}
+{{ if .Success }}
+<div class="alert alert-success alert-dismissable" role="alert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Successful request, Doctor ID: {{ .DoctorId }}
+</div>
+{{ else }}
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    Unable to submit the request, retry later.
+</div>
+{{ end }}
+{{ end }}
+
+<form class="form-inline" action="createDoctor.html" method="post">
+    <div class="form-group">
+        <label for="signature">Signature</label>
+        <input type="text" class="form-control" id="signature" placeholder="sign" name="signature">
+    </div>
+    <input type="hidden" name="submitted" value="true">
+    <button type="submit" class="btn btn-default">Send the request</button>
+</form>
+
+<br>
+{{end}}
